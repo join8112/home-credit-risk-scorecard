@@ -1,0 +1,149 @@
+{
+  "n_candidates": 186,
+  "n_iv_pass": 85,
+  "n_after_corr": 43,
+  "features": [
+    "EXT_SOURCE_MEAN",
+    "INST_LATE_RATE",
+    "CREDIT_TO_GOODS",
+    "CC_AVG_UTILISATION_LAST_6M",
+    "EMPLOYED_YEARS",
+    "PREV_REFUSED_RATE",
+    "NAME_EDUCATION_TYPE",
+    "EXT_SOURCE_3",
+    "FLAG_DOCUMENT_3",
+    "POS_N_LOANS",
+    "PREV_AVG_GRANTED_TO_ASKED",
+    "PREV_N_HIGH_YIELD"
+  ],
+  "metrics": {
+    "development": {
+      "AUC": 0.7508457108083791,
+      "Gini": 0.5016914216167583,
+      "KS": 0.37590442490828635
+    },
+    "hold-out": {
+      "AUC": 0.7519092012507069,
+      "Gini": 0.5038184025014139,
+      "KS": 0.37917474907600446
+    }
+  },
+  "auc_with_unstable_term": 0.7525449781535886,
+  "challenger_without_ext_source": {
+    "features": [
+      "AGE_YEARS",
+      "BUREAU_N_OPENED_LAST_1Y",
+      "INST_LATE_RATE",
+      "CREDIT_TO_GOODS",
+      "NAME_EDUCATION_TYPE",
+      "EMPLOYED_YEARS",
+      "PREV_REFUSED_RATE",
+      "REGION_RATING_CLIENT_W_CITY",
+      "CC_AVG_UTILISATION_LAST_6M",
+      "BUREAU_DAYS_SINCE_FIRST_OPEN",
+      "BUREAU_N_ACTIVE",
+      "BUREAU_ACTIVE_DEBT_RATIO",
+      "OCCUPATION_TYPE",
+      "DAYS_LAST_PHONE_CHANGE",
+      "BUREAU_MAX_AMT_OVERDUE"
+    ],
+    "AUC": 0.7139129278391196,
+    "Gini": 0.4278258556782393,
+    "KS": 0.31074340505921993
+  },
+  "score_psi": {
+    "hold-out vs development": 0.00012221069980667234,
+    "Kaggle test vs development": 0.006617033181388134
+  },
+  "decision": {
+    "cutoff": 538.0,
+    "approval_rate": 0.8544019771500423,
+    "bad_rate_all": 0.08073362672621241,
+    "bad_rate_approved": 0.05547943467559818,
+    "bad_rate_declined": 0.22893091125670043,
+    "share_of_bads_declined": 0.4128625134264232
+  },
+  "scaling": {
+    "base_score": 600,
+    "base_odds": 50,
+    "pdo": 20
+  },
+  "points_range": [
+    446,
+    665
+  ],
+  "examples": [
+    {
+      "SK_ID_CURR": 249287,
+      "score": 522,
+      "reasons": [
+        {
+          "feature": "EXT_SOURCE_MEAN",
+          "value": 0.374,
+          "points": 37,
+          "max_points": 82
+        },
+        {
+          "feature": "INST_LATE_RATE",
+          "value": 0.625,
+          "points": 35,
+          "max_points": 53
+        },
+        {
+          "feature": "EXT_SOURCE_3",
+          "value": 0.102,
+          "points": 38,
+          "max_points": 54
+        }
+      ]
+    },
+    {
+      "SK_ID_CURR": 268565,
+      "score": 534,
+      "reasons": [
+        {
+          "feature": "EXT_SOURCE_MEAN",
+          "value": 0.022,
+          "points": 16,
+          "max_points": 82
+        },
+        {
+          "feature": "EMPLOYED_YEARS",
+          "value": 0.364,
+          "points": 40,
+          "max_points": 57
+        },
+        {
+          "feature": "NAME_EDUCATION_TYPE",
+          "value": "Secondary / secondary special",
+          "points": 44,
+          "max_points": 55
+        }
+      ]
+    },
+    {
+      "SK_ID_CURR": 290577,
+      "score": 535,
+      "reasons": [
+        {
+          "feature": "EXT_SOURCE_MEAN",
+          "value": 0.311,
+          "points": 27,
+          "max_points": 82
+        },
+        {
+          "feature": "EMPLOYED_YEARS",
+          "value": 2.782,
+          "points": 42,
+          "max_points": 57
+        },
+        {
+          "feature": "NAME_EDUCATION_TYPE",
+          "value": "Secondary / secondary special",
+          "points": 44,
+          "max_points": 55
+        }
+      ]
+    }
+  ]
+}

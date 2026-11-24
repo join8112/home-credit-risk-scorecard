@@ -1,4 +1,4 @@
-.PHONY: setup data features eda all
+.PHONY: setup data features eda scorecard all
 
 setup:
 	pip install -r requirements.txt && pip install -e .
@@ -12,4 +12,7 @@ features:
 eda:
 	python -m hcrisk.eda
 
-all: data features eda
+scorecard:
+	python -m hcrisk.scorecard
+
+all: data features eda scorecard

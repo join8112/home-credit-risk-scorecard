@@ -1,0 +1,3 @@
+gender,n,approval_rate,bad_rate,bad_rate_if_approved,adverse_impact_ratio
+F,60839,0.8692,0.0697,0.0481,1.0000
+M,31412,0.8257,0.1021,0.0706,0.9499
