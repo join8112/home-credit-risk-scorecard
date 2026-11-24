@@ -1,0 +1,17 @@
+,value
+n_train,307511.0000
+n_test,48744.0000
+n_features,194.0000
+default_rate,0.0807
+employed_anomaly_share,0.1801
+default_rate_employed_anomaly,0.0540
+default_rate_employed_normal,0.0866
+default_rate_male,0.1014
+default_rate_female,0.0700
+train_bb_coverage_among_bureau,0.3500
+test_bb_coverage_among_bureau,0.9998
+train_revolving_share,0.0952
+test_revolving_share,0.0090
+train_median_term,20.0000
+test_median_term,16.2771
+share_app_cols_over_50pct_missing,0.3083
