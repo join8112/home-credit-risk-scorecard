@@ -6,3 +6,5 @@ matplotlib>=3.8
 seaborn>=0.13
 scikit-learn>=1.5
 kaggle>=1.7
+optbinning>=0.19
+statsmodels>=0.14

@@ -17,3 +17,5 @@ __pycache__/
 src/*.egg-info/
 # small result tables are part of the report
 !reports/tables/*.csv
+
+models/
