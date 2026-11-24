@@ -214,3 +214,5 @@ customer, an auditor and a regulator.*
 python -m hcrisk.scorecard   # stage 2, ~10 min, writes models/scorecard.pkl
 python -m hcrisk.compare     # stage 3, ~25 min
 ```
+
+Try the scorecard, cut-off and fairness trade-offs interactively in the [live dashboard](https://home-credit-risk-scorecard.streamlit.app/).

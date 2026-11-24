@@ -1,5 +1,9 @@
 # Home Credit Risk Scorecard
 
+[![Open the live dashboard](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://home-credit-risk-scorecard.streamlit.app/)
+
+**▶ Live demo: [home-credit-risk-scorecard.streamlit.app](https://home-credit-risk-scorecard.streamlit.app/)**
+
 **A bank-style credit scorecard (WOE/IV + logistic regression) vs XGBoost on the
 Kaggle Home Credit Default Risk data, with a focus on the trade-off between
 predictive power and the explainability regulators require.**
@@ -7,6 +11,8 @@ predictive power and the explainability regulators require.**
 > **中文摘要**
 > 這是一個信用風險建模作品集專案。資料來自 Kaggle Home Credit Default Risk（8 張關聯表、約 5,800 萬列）。
 > 流程：用 **DuckDB SQL** 把多張歷史表聚合成每位申請人一列的特徵表 → 做 EDA 與 IV/PSI 篩選 → 建立銀行常用的 **WOE 分箱 + 邏輯斯迴歸評分卡** → 與 **XGBoost + SHAP** 比較 → 討論模型可解釋性、公平性與監理要求（如模型風險管理、拒貸理由說明）之間的取捨。
+> **線上互動 dashboard：https://home-credit-risk-scorecard.streamlit.app/**
+>
 > 目前進度：
 > - 第 1 階段（SQL 特徵層與 EDA）完成，詳見 [reports/01_data_and_eda.md](reports/01_data_and_eda.md)。
 > - 第 2 階段（WOE/IV 評分卡）完成：12 個變數、保留樣本 AUC 0.752 / KS 0.379，並分析外部分數依賴、拒絕理由與公平性，詳見 [reports/02_scorecard.md](reports/02_scorecard.md)。
@@ -28,7 +34,7 @@ project builds both models on the same data and makes that trade-off concrete.
 | 1. SQL feature layer + EDA | ✅ done | 7 tables → 356k applicants × 194 features in DuckDB; IV and PSI screening |
 | 2. WOE/IV logistic scorecard | ✅ done | 12-feature points card, hold-out AUC 0.752 / Gini 0.504 / KS 0.379, score PSI 0.007 |
 | 3. XGBoost + SHAP, regulatory discussion | ✅ done | full XGBoost AUC 0.786 (+0.034), +5.1% profit; champion/challenger recommendation |
-| 4. Interactive dashboard | ✅ done | Streamlit app: score calculator with reason codes, cut-off / profit / fairness explorer |
+| 4. Interactive dashboard | ✅ [live](https://home-credit-risk-scorecard.streamlit.app/) | Streamlit app: score calculator with reason codes, cut-off / profit / fairness explorer |
 
 Key findings from stage 1 ([full report](reports/01_data_and_eda.md)):
 
@@ -74,6 +80,8 @@ Key findings from stage 3 ([full report](reports/03_model_comparison.md)):
 
 ## Interactive demo
 
+**Live: [https://home-credit-risk-scorecard.streamlit.app/](https://home-credit-risk-scorecard.streamlit.app/)**
+
 A Streamlit app ([`dashboard/app.py`](dashboard/app.py)) lets you:
 
 - **Score an applicant**: pick a bin for each scorecard variable and see the
@@ -93,9 +101,9 @@ streamlit run dashboard/app.py
 ```
 
 The app reads only the aggregated files in `dashboard/data/` (score histograms,
-cut-off tables, report tables), so it needs **no Kaggle data** and can be deployed
-as-is on [Streamlit Community Cloud](https://streamlit.io/cloud): *New app* → this
-repository → main file `dashboard/app.py`. Regenerate the data with
+cut-off tables, report tables), so it needs **no Kaggle data** and is deployed as-is
+on [Streamlit Community Cloud](https://streamlit.io/cloud) (*New app* → this
+repository → main file `dashboard/app.py`); a fork can be deployed the same way. Regenerate the data with
 `make dashboard-data` after re-running the models.
 
 ## Repository layout
