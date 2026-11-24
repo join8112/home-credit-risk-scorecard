@@ -10,6 +10,7 @@ predictive power and the explainability regulators require.**
 > 目前進度：
 > - 第 1 階段（SQL 特徵層與 EDA）完成，詳見 [reports/01_data_and_eda.md](reports/01_data_and_eda.md)。
 > - 第 2 階段（WOE/IV 評分卡）完成：12 個變數、保留樣本 AUC 0.752 / KS 0.379，並分析外部分數依賴、拒絕理由與公平性，詳見 [reports/02_scorecard.md](reports/02_scorecard.md)。
+> - 第 3 階段（XGBoost + SHAP 比較）完成：全特徵 XGBoost AUC 0.786、利潤 +5.1%，但提升主要來自「更多特徵」而非演算法；建議評分卡當主模型、XGBoost 當挑戰者模型，詳見 [reports/03_model_comparison.md](reports/03_model_comparison.md)。
 
 ## Why this project
 
@@ -25,8 +26,8 @@ project builds both models on the same data and makes that trade-off concrete.
 |---|---|---|
 | 1. SQL feature layer + EDA | ✅ done | 7 tables → 356k applicants × 194 features in DuckDB; IV and PSI screening |
 | 2. WOE/IV logistic scorecard | ✅ done | 12-feature points card, hold-out AUC 0.752 / Gini 0.504 / KS 0.379, score PSI 0.007 |
-| 3. XGBoost + SHAP, regulatory discussion | ⏳ next | performance vs explainability, fairness, adverse-action reasons |
-| 4. Interactive dashboard | ⏳ | Streamlit app to score an applicant and explain the score |
+| 3. XGBoost + SHAP, regulatory discussion | ✅ done | full XGBoost AUC 0.786 (+0.034), +5.1% profit; champion/challenger recommendation |
+| 4. Interactive dashboard | ⏳ next | Streamlit app to score an applicant and explain the score |
 
 Key findings from stage 1 ([full report](reports/01_data_and_eda.md)):
 
@@ -53,6 +54,23 @@ Key findings from stage 2 ([full report](reports/02_scorecard.md)):
 
 ![Scorecard points](reports/figures/10_scorecard_points.png)
 
+Key findings from stage 3 ([full report](reports/03_model_comparison.md)):
+
+| Model (same hold-out) | AUC | KS | Defaulters caught at 15% decline | Profit vs scorecard |
+|---|---:|---:|---:|---:|
+| WOE scorecard, 12 features | 0.752 | 0.379 | 41.3% | – |
+| XGBoost, same 12 features, monotone | 0.756 | 0.386 | 42.5% | +0.5% |
+| XGBoost, 186 features | **0.786** | **0.431** | **47.9%** | **+5.1%** |
+
+- **The algorithm alone adds almost nothing** (+0.004 AUC); the gain comes from
+  using many more features.
+- Calibration, stability and fairness are similar across all three models.
+- The cost is explainability: 46 features needed for 80% of SHAP attribution,
+  direction reversals, and 30% of the scorecard's declines would flip.
+- **Recommendation: scorecard as champion, XGBoost as challenger**, then
+  monotone XGBoost with SHAP reason codes if the extra profit is worth the
+  governance work.
+
 ## Repository layout
 
 ```
@@ -63,9 +81,11 @@ src/hcrisk/
   build_features.py   load CSVs into DuckDB, run SQL, grain checks, export parquet
   eda.py              IV / PSI tables and figures
   scorecard.py        WOE binning, stepwise logistic, points, validation
+  compare.py          XGBoost (monotone + full), SHAP, profit curve, fairness
 reports/
   01_data_and_eda.md  stage 1 write-up
   02_scorecard.md     stage 2 write-up
+  03_model_comparison.md  stage 3 write-up
   figures/  tables/
 scripts/download_data.sh
 ```
@@ -85,12 +105,13 @@ make data       # download + unzip into data/raw (~2.5 GB)
 make features   # DuckDB load + SQL feature layer (~2 min)
 make eda        # regenerate reports/figures and reports/tables
 make scorecard  # stage 2 scorecard (~10 min)
+make compare    # stage 3 XGBoost + SHAP comparison (~25 min)
 ```
 
 ## Tech stack
 
-DuckDB (SQL), pandas, scikit-learn, statsmodels, optbinning, matplotlib; later
-XGBoost, SHAP, Streamlit.
+DuckDB (SQL), pandas, scikit-learn, statsmodels, optbinning, XGBoost, SHAP,
+matplotlib; later Streamlit.
 
 ## Data
 

@@ -1,0 +1,4 @@
+model,AUC,Gini,KS,dev_AUC,brier,mean_pd_vs_actual,psi_kaggle_test,bads_caught_at_15pct_decline,bad_rate_approved_at_15pct,optimal_approval_rate,max_profit_bn,profit_at_85pct_bn
+Scorecard,0.7519,0.5038,0.3792,0.7508,0.0684,0.9923,0.0068,0.4129,0.0555,0.8538,2.4871,2.4843
+XGBoost monotone-12,0.7562,0.5123,0.3861,0.7587,0.0681,0.9978,0.0072,0.4248,0.0546,0.8299,2.4992,2.4924
+XGBoost full,0.7857,0.5714,0.4310,0.8308,0.0660,0.9943,0.0051,0.4791,0.0495,0.8583,2.6135,2.6084

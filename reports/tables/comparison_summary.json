@@ -1,0 +1,58 @@
+{
+  "models": {
+    "XGBoost monotone-12": {
+      "params": {
+        "max_depth": 3,
+        "min_child_weight": 50
+      },
+      "trees": 667
+    },
+    "XGBoost full": {
+      "params": {
+        "max_depth": 3,
+        "min_child_weight": 50
+      },
+      "trees": 1505
+    }
+  },
+  "shap_concentration": {
+    "top1": "0.08671052",
+    "top10": "0.3144876",
+    "n_features_for_80pct": 46
+  },
+  "direction_reversals": {
+    "EXT_SOURCE_MEAN": 0,
+    "INST_LATE_RATE": 0,
+    "CREDIT_TO_GOODS": 1,
+    "CC_AVG_UTILISATION_LAST_6M": 0,
+    "EMPLOYED_YEARS": 1,
+    "PREV_REFUSED_RATE": 0,
+    "EXT_SOURCE_3": 2,
+    "FLAG_DOCUMENT_3": 0,
+    "POS_N_LOANS": 1,
+    "PREV_AVG_GRANTED_TO_ASKED": 2,
+    "PREV_N_HIGH_YIELD": 0
+  },
+  "example_xgb_pd": 0.2549639344215393,
+  "decline_overlap": 0.6956521739130435,
+  "reason_agreement": 0.9094606164383562,
+  "n_candidates": 186,
+  "monotone_constraints": {
+    "EXT_SOURCE_MEAN": -1,
+    "INST_LATE_RATE": 1,
+    "CREDIT_TO_GOODS": 1,
+    "CC_AVG_UTILISATION_LAST_6M": 1,
+    "EMPLOYED_YEARS": -1,
+    "PREV_REFUSED_RATE": 1,
+    "NAME_EDUCATION_TYPE": 0,
+    "EXT_SOURCE_3": -1,
+    "FLAG_DOCUMENT_3": 1,
+    "POS_N_LOANS": -1,
+    "PREV_AVG_GRANTED_TO_ASKED": 1,
+    "PREV_N_HIGH_YIELD": 1
+  },
+  "assumptions": {
+    "margin_good": 0.08,
+    "loss_bad": 0.45
+  }
+}
