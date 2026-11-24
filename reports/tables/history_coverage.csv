@@ -1,0 +1,9 @@
+table,has_history,share_of_applicants,default_rate
+Credit Bureau,True,0.8569,0.0773
+Credit Bureau,False,0.1431,0.1012
+Previous application,True,0.9465,0.0819
+Previous application,False,0.0535,0.0596
+Installment history,True,0.9484,0.0819
+Installment history,False,0.0516,0.0598
+Home Credit card,True,0.2826,0.0867
+Home Credit card,False,0.7174,0.0784
