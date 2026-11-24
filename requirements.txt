@@ -9,3 +9,5 @@ kaggle>=1.7
 optbinning>=0.19
 statsmodels>=0.14
 xgboost>=2.0
+streamlit>=1.40
+plotly>=5.20

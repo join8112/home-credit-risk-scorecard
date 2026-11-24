@@ -1,4 +1,4 @@
-.PHONY: setup data features eda scorecard compare all
+.PHONY: setup data features eda scorecard compare dashboard-data app all
 
 setup:
 	pip install -r requirements.txt && pip install -e .
@@ -18,4 +18,10 @@ scorecard:
 compare:
 	python -m hcrisk.compare
 
-all: data features eda scorecard compare
+dashboard-data:
+	python -m hcrisk.export_dashboard
+
+app:
+	streamlit run dashboard/app.py
+
+all: data features eda scorecard compare dashboard-data

@@ -11,6 +11,7 @@ predictive power and the explainability regulators require.**
 > - 第 1 階段（SQL 特徵層與 EDA）完成，詳見 [reports/01_data_and_eda.md](reports/01_data_and_eda.md)。
 > - 第 2 階段（WOE/IV 評分卡）完成：12 個變數、保留樣本 AUC 0.752 / KS 0.379，並分析外部分數依賴、拒絕理由與公平性，詳見 [reports/02_scorecard.md](reports/02_scorecard.md)。
 > - 第 3 階段（XGBoost + SHAP 比較）完成：全特徵 XGBoost AUC 0.786、利潤 +5.1%，但提升主要來自「更多特徵」而非演算法；建議評分卡當主模型、XGBoost 當挑戰者模型，詳見 [reports/03_model_comparison.md](reports/03_model_comparison.md)。
+> - 第 4 階段（互動式 dashboard）完成：可模擬申請人分數與拒貸理由、調整核准率看違約率／利潤／公平性，見下方「Interactive demo」。
 
 ## Why this project
 
@@ -27,7 +28,7 @@ project builds both models on the same data and makes that trade-off concrete.
 | 1. SQL feature layer + EDA | ✅ done | 7 tables → 356k applicants × 194 features in DuckDB; IV and PSI screening |
 | 2. WOE/IV logistic scorecard | ✅ done | 12-feature points card, hold-out AUC 0.752 / Gini 0.504 / KS 0.379, score PSI 0.007 |
 | 3. XGBoost + SHAP, regulatory discussion | ✅ done | full XGBoost AUC 0.786 (+0.034), +5.1% profit; champion/challenger recommendation |
-| 4. Interactive dashboard | ⏳ next | Streamlit app to score an applicant and explain the score |
+| 4. Interactive dashboard | ✅ done | Streamlit app: score calculator with reason codes, cut-off / profit / fairness explorer |
 
 Key findings from stage 1 ([full report](reports/01_data_and_eda.md)):
 
@@ -71,6 +72,32 @@ Key findings from stage 3 ([full report](reports/03_model_comparison.md)):
   monotone XGBoost with SHAP reason codes if the extra profit is worth the
   governance work.
 
+## Interactive demo
+
+A Streamlit app ([`dashboard/app.py`](dashboard/app.py)) lets you:
+
+- **Score an applicant**: pick a bin for each scorecard variable and see the
+  score, PD, rating grade, decision and the top three reason codes.
+- **Move the cut-off**: compare default rate, defaulters caught, profit and
+  age / gender approval ratios for the scorecard and both XGBoost models.
+- **Browse the models**: IV ranking, SHAP importance, rating grades and the full
+  points table.
+
+![Dashboard: score an applicant](reports/figures/dashboard_score.png)
+
+Run it locally:
+
+```bash
+pip install -r dashboard/requirements.txt
+streamlit run dashboard/app.py
+```
+
+The app reads only the aggregated files in `dashboard/data/` (score histograms,
+cut-off tables, report tables), so it needs **no Kaggle data** and can be deployed
+as-is on [Streamlit Community Cloud](https://streamlit.io/cloud): *New app* → this
+repository → main file `dashboard/app.py`. Regenerate the data with
+`make dashboard-data` after re-running the models.
+
 ## Repository layout
 
 ```
@@ -82,6 +109,10 @@ src/hcrisk/
   eda.py              IV / PSI tables and figures
   scorecard.py        WOE binning, stepwise logistic, points, validation
   compare.py          XGBoost (monotone + full), SHAP, profit curve, fairness
+  export_dashboard.py aggregated data for the dashboard (no applicant rows)
+dashboard/
+  app.py              Streamlit app
+  data/               aggregated inputs, safe to publish
 reports/
   01_data_and_eda.md  stage 1 write-up
   02_scorecard.md     stage 2 write-up
@@ -106,12 +137,13 @@ make features   # DuckDB load + SQL feature layer (~2 min)
 make eda        # regenerate reports/figures and reports/tables
 make scorecard  # stage 2 scorecard (~10 min)
 make compare    # stage 3 XGBoost + SHAP comparison (~25 min)
+make dashboard-data && make app   # stage 4 Streamlit demo
 ```
 
 ## Tech stack
 
 DuckDB (SQL), pandas, scikit-learn, statsmodels, optbinning, XGBoost, SHAP,
-matplotlib; later Streamlit.
+matplotlib, Streamlit, Plotly.
 
 ## Data
 
