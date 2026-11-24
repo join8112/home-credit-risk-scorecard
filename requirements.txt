@@ -8,3 +8,4 @@ scikit-learn>=1.5
 kaggle>=1.7
 optbinning>=0.19
 statsmodels>=0.14
+xgboost>=2.0
