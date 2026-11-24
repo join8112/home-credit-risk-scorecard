@@ -1,5 +1,5 @@
 # Data and credentials never go into git
-data/
+/data/
 *.zip
 *.csv
 *.parquet
@@ -19,3 +19,4 @@ src/*.egg-info/
 !reports/tables/*.csv
 
 models/
+!dashboard/data/*.csv
