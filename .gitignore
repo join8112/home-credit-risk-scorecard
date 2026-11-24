@@ -1,0 +1,19 @@
+# Data and credentials never go into git
+data/
+*.zip
+*.csv
+*.parquet
+*.duckdb
+*.duckdb.wal
+kaggle.json
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+
+src/*.egg-info/
+# small result tables are part of the report
+!reports/tables/*.csv
