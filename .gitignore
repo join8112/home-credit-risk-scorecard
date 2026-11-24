@@ -19,3 +19,4 @@ src/*.egg-info/
 !reports/tables/*.csv
 
 models/
+!dashboard/data/*.csv
